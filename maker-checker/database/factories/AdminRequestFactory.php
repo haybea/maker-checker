@@ -2,18 +2,20 @@
 
 namespace Database\Factories;
 
+use App\Models\Admin;
+use App\Models\AdminRequest;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
-class UserFactory extends Factory
+class AdminRequestFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = User::class;
+    protected $model = AdminRequest::class;
 
     /**
      * Define the model's default state.
@@ -23,9 +25,12 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'lastname' => $this->faker->lastname,
-            'firstname' => $this->faker->firstname,
-            'email' => $this->faker->unique()->safeEmail,
+            'maker_id'=>1,
+            'checker_id'=>null,
+            'user_id'=>null,
+            'request_type'=> 'create',
+            'payload'=>null,
+            'status'=>'pending'
         ];
     }
 }

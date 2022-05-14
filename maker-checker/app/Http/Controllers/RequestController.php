@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendEmailJob;
 use App\Models\Admin;
 use App\Models\AdminRequest;
 use Illuminate\Support\Facades\Auth;
@@ -57,6 +58,8 @@ class RequestController extends Controller
         $new_request->status = 'pending';
 
         if($new_request->save()){
+            $this->sendMail($this->admin->id);
+
             return $this->success('Request submitted successfully. Please wait for approval');
         } else{
             return $this->error();
@@ -87,6 +90,7 @@ class RequestController extends Controller
             $new_request->status = 'pending';
 
             if ($new_request->save()) {
+                $this->sendMail($this->admin->id);
                 return $this->success('Request submitted successfully. Please wait for approval');
             } else {
                 return $this->error();
@@ -107,6 +111,7 @@ class RequestController extends Controller
             $new_request->status = 'pending';
 
             if($new_request->save()){
+                $this->sendMail($this->admin->id);
                 return $this->success('Request submitted successfully. Please wait for approval');
             } else{
                 return $this->error();
@@ -136,7 +141,7 @@ class RequestController extends Controller
                     return $this->error('Request already '.$admin_request->status);
                 }
             } else{
-                return $this->error('You are not authorised to approve this request');
+                return $this->error('You are not authorised to approve this request',401);
             }
         }else{
             return $this->error('Request not found');
@@ -159,7 +164,7 @@ class RequestController extends Controller
                     return $this->error('Request already '.$admin_request->status);
                 }
             } else{
-                return $this->error('You are not authorised to approve this request');
+                return $this->error('You are not authorised to approve this request',401);
             }
         }else{
             return $this->error('Request not found');
