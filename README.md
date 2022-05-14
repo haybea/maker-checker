@@ -37,7 +37,8 @@ $ composer install
   -Run to listen for email jobs
   ```$ php artisan queue:listen```
   
--Useful links
+## Useful links
+
 Postman collection: https://www.getpostman.com/collections/e18c3f5f338d7f9f37f5
 
 API documentation: https://documenter.getpostman.com/view/10025583/UyxjF64g
