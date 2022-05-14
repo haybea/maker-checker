@@ -21,11 +21,6 @@ $ composer install
 
 
 ### Setup
-- When you are done with installation, copy the `.env.example` file to `.env`
-
-  ```$ cp .env.example .env```
-
-
 - Generate the application key
 
   ```$ php artisan key:generate```
@@ -38,6 +33,8 @@ $ composer install
 ### Run the application
 
   ```$ php artisan serve```
+  
+  -Run to listen for email jobs
   ```$ php artisan queue:listen```
 
 
