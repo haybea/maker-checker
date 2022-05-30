@@ -7,11 +7,15 @@ namespace Tests\Unit;
 use App\Models\Admin;
 use App\Models\AdminRequest;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Sequence;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 use JWTAuth;
 
 class RequestTest extends TestCase
 {
+    use DatabaseMigrations;
     /**
      * A basic unit test example.
      *
@@ -50,6 +54,21 @@ class RequestTest extends TestCase
     {
         $admin = Admin::factory()->create();
         $token = JWTAuth::fromUser($admin);
+        $user = User::factory()->create();
+        $data = [
+            'firstname' => "John",
+            'user_id'=>$user->id
+        ];
+        $admin_request = AdminRequest::factory()->count(4)->state(new Sequence(
+            ['request_type'=>'update'],
+            ['request_type'=>'delete']
+        ))->create(
+            [
+                'payload'=>$data,
+                'user_id'=>$user->id,
+                'maker_id'=>$admin->id
+            ]
+        );
         $response = $this->json('GET', '/api/pending-requests',[],['Authorization' => "Bearer $token"]);
         $response->assertStatus(200);
         $response->assertJsonStructure(
@@ -170,4 +189,5 @@ class RequestTest extends TestCase
 //        $response2 = $this->json('GET', '/api/decline/'.$admin_request->id.'?token='.$token2);
         $response2->assertStatus(200);
     }
+
 }
