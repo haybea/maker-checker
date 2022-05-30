@@ -17,6 +17,7 @@ After cloning the application, you need to install it's dependencies.
 ```
 $ cd maker-checker
 $ composer install
+$ copy .env.example .env
 ```
 
 
