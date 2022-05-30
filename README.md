@@ -26,6 +26,8 @@ $ composer install
   ```$ php artisan key:generate```
 
 
+- Create database ```maker_checker```
+
 - Run migrations for the db
 
   ```$ php artisan migrate```
@@ -36,6 +38,16 @@ $ composer install
   
   -Run to listen for email jobs
   ```$ php artisan queue:listen```
+
+### To test
+- Create database ```maker_checker_test```
+
+- Run the following 
+
+```$ php artisan migrate --env=testing```
+
+
+```$ php artisan test --env=testing```
   
 ## Useful links
 
